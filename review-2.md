@@ -4,6 +4,7 @@ tus tareas diarias. ¿Tienes mucho trabajo y no sabes por donde comenzar? Si es 
 
 
 
+
 ¿Cuáles son las funcionalidades más importantes y porque los usuarios las usarían?
 Está aplicación tiene muchos beneficios, todos necesitamos ayuda para organizar nuestros pendientes diarios
 y esta app se encarga de eso. Ya no tienes que usar esas aburridas agendas. Cuando tienes una app al alcance de tus dedos 
