@@ -1,5 +1,5 @@
 const { reject } = require('lodash');
-const { resolve } =require('path');
+const { resolve } = require('path');
 const readline = require('readline');
 
 
@@ -10,6 +10,17 @@ const port = 8080;
 //constantes para los routers
 const listViewRouter = require('./list-edit-router');
 const listEditRouter = require('./list-edit-router');
+
+// Middleware de aplicacion para validar metodos http validos
+const validateHTTPMethods = (req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'POST' && req.method !== 'PUT' && req.method !== 'DELETE'){
+    res.status(405).send('Metodo HTTP no permitido');
+  }else{
+    next();
+  }
+};
+
+app.use(validateHTTPMethods)
 
 ///ruta para obtener la lista de tareas en formato JSON
 app.get('/tasks', (req, res) => {
@@ -109,9 +120,9 @@ function listTasks() {
   }
   
   // Función principal asincrónica
-  async function main(){  // declara la función asincrónica, la función contrendrá operaciones asincrónicas
+  async function main(){  
     while (true) {
-      const action = await askForAction(); //esperar la respuesta del usuario antes de continuar.
+      const action = await askForAction(); 
       if (action === 'exit'){
         rl.close();
         break;
@@ -120,12 +131,12 @@ function listTasks() {
   }
   function askForAction() {
     return new Promise((resolve, reject) => {
-      rl.question('¿Qué acción deseas realizar? (add/delete/update/complete/list/exit): ', async action => { //readline "rl" Permite al usuario ingresar comandos y recibir respuestas del programa.
+      rl.question('¿Qué acción deseas realizar? (add/delete/update/complete/list/exit): ', async action => { 
         if (action === 'add') {
           const indicador = await askQuestion('Indicador de la tarea para agregar: ');
           const description = await askQuestion('Descripción de la tarea: ');
           try {
-            await addTask(indicador, description);  //pausa la ejecución de la función hasta que la promesa se complete
+            await addTask(indicador, description);  
           } catch (error) {
             console.log('No se pudo agregar la tarea.');
           }
@@ -154,7 +165,7 @@ function listTasks() {
         } else if (action === 'list') {
           listTasks();
         } else if (action === 'exit') {
-          resolve(action); // Resuelve la promesa con 'exit' para salir
+          resolve(action); 
         } else {
           console.log('Acción no válida.');
         }
@@ -164,7 +175,7 @@ function listTasks() {
   }
 // Función para hacer una pregunta y obtener la respuesta
 function askQuestion(question) {
-    return new Promise((resolve, reject) => {  // promesa para esperar la respuesta del usuario de manera asincrónica.
+    return new Promise((resolve, reject) => {  
       rl.question(question, answer => {
         resolve(answer);
       });
