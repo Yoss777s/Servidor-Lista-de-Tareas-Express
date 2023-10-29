@@ -12,7 +12,7 @@ const postEmptyBody = (req, res, next) => {
 };
 
 
-// Middleware para informacion invalida o atributos faltantes
+// Middleware para informacion invalida 
 const postInvalidData = (req, res, next) => {
     if (req.method === 'POST'){
         const { indicator, description } = req.body;
@@ -35,7 +35,7 @@ const putEmptyBody = (req, res, next) => {
     }
 };
 
-// Middleware para informacion invalida o atributos faltantes
+// Middleware para informacion invalida 
 const putInvalidData = (req, res, next) => {
     if (req.method === 'PUT') {
         const { newDescription } = req.body;
@@ -48,7 +48,7 @@ const putInvalidData = (req, res, next) => {
         next();
     }
 };
-//listEditRouter.use(validateTask);
+
 
 
 listEditRouter.post('/create', postEmptyBody, postInvalidData, (req, res) => {
